@@ -14,6 +14,13 @@
 
 
 
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-circle.min.css?v=1.0.2" rel="stylesheet">
+
 
 
 
@@ -286,12 +293,12 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.diffmore.com/2018/08/10/test1/">
+    <link itemprop="mainEntityOfPage" href="http://www.diffmore.com/2018/09/28/树莓派交叉编译/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rainbow-Martin">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -305,7 +312,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/10/test1/" itemprop="url">this is a test</a></h1>
+                <a class="post-title-link" href="/2018/09/28/树莓派交叉编译/" itemprop="url">树莓派交叉编译</a></h1>
         
 
         <div class="post-meta">
@@ -317,8 +324,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-10T10:14:14+08:00">
-                2018-08-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-28T14:16:59+08:00">
+                2018-09-28
               </time>
             
 
@@ -340,8 +347,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
+                  <a href="/categories/嵌入式系统/" itemprop="url" rel="index">
+                    <span itemprop="name">嵌入式系统</span>
                   </a>
                 </span>
 
@@ -379,16 +386,162 @@
       
         
           
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-<p>这是一个测试消息使用</p>
+            <p>本文主要的目标是建立树莓派交叉编译环境使用用。交叉编译的环境是centos 7.3版本</p>
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>下载树莓派交叉编译包<br><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/raspberrypi/tools/archive/master.zip</span><br></pre></td></tr></table></figure></p>
+<p>交叉编译工具集中有五个交叉编译组，我使用的下面这个<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tools-master/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://www.linaro.org/" target="_blank" rel="noopener">https://www.linaro.org/</a> 具体可以参考官网，其实每个交叉编译组都挺好的，由不同的公司提供的<br>export 编译命令，使用source xxx.sh来执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line"></span><br><span class="line">CROSS_COMPILE_PATH=<span class="string">"/home/martin/myworks/raspberry/tools-master/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/"</span></span><br><span class="line">CXX=<span class="variable">$CROSS_COMPILE_PATH</span><span class="string">"arm-linux-gnueabihf-g++"</span></span><br><span class="line">CC=<span class="variable">$CROSS_COMPILE_PATH</span><span class="string">"arm-linux-gnueabihf-gcc"</span></span><br><span class="line">AR=<span class="variable">$CROSS_COMPILE_PATH</span><span class="string">"arm-linux-gnueabihf-ar"</span></span><br><span class="line"><span class="built_in">export</span> CROSS_COMPILE_PATH</span><br><span class="line"><span class="built_in">export</span> CXX</span><br><span class="line"><span class="built_in">export</span> CC</span><br><span class="line"><span class="built_in">export</span> AR</span><br></pre></td></tr></table></figure>
+<p>编译，按正常MAKEFILE编写，里面不要使用gcc、g++这种绝对命令，<br>其他正常写MAKE，系统库，使用CC命令后，该命令自行有SEARCH_PATH，具体可参考下面命令<br>arm-linux-gnueabihf-gcc -v<br>arm-linux-gnueabihf-ld –verbose<br>arm-linux-gnueabihf-g++ -E -x c++ - -v &lt; /dev/null<br>编译完成只有，拷贝到树莓派即可执行  </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.diffmore.com/2018/09/28/openssl + paho.mqtt 交叉编译/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rainbow-Martin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="活到老，学到老">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/28/openssl + paho.mqtt 交叉编译/" itemprop="url">openssl + paho.mqtt 交叉编译</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-28T14:04:49+08:00">
+                2018-09-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/嵌入式系统/" itemprop="url" rel="index">
+                    <span itemprop="name">嵌入式系统</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>本文主要的目标是交叉编译openssl 和 paho.mqtt，用于在树莓派系统上使用。交叉编译的环境是centos 7.3版本</p>
+<h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><h3 id="1-交叉编译OPENSSL"><a href="#1-交叉编译OPENSSL" class="headerlink" title="1. 交叉编译OPENSSL"></a>1. 交叉编译OPENSSL</h3><p>下载openssl 源码<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ wget https://www.openssl.org/<span class="built_in">source</span>/old/1.0.1/openssl-1.0.1k.tar.gz</span><br></pre></td></tr></table></figure></p>
+<p>解压后，在openssl目录内执行</p>
+<p>参考[建立树莓派交叉编译]<a href="/2018/09/28/树莓派交叉编译/" title="树莓派交叉编译">树莓派交叉编译</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/myworks/raspberry/rasp_test/pre_make.</span><br><span class="line">./config no-asm       <span class="comment">#用于提升系统兼容性</span></span><br></pre></td></tr></table></figure></p>
+<p>打开Makefile，把其中的-m64去掉，一共两处<br>执行make<br>编译完成之后，生成的lib就在解压目录下</p>
+<h3 id="2-交叉编译paho-mqtt"><a href="#2-交叉编译paho-mqtt" class="headerlink" title="2. 交叉编译paho.mqtt"></a>2. 交叉编译paho.mqtt</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/eclipse/paho.mqtt.c.git</span><br></pre></td></tr></table></figure>
+<p>打开Makefile，把CC ?= gcc去掉，使用外部自定义的$CC<br><br>并增加下面两行（-lrt主要是clock_time库引用）<br><br>CFLAGS += -I../openssl-1.0.1k/include/<br><br>LDFLAGS += -L ../openssl-1.0.1k/ -lrt<br></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/myworks/raspberry/rasp_test/pre_make.sh</span><br></pre></td></tr></table></figure>
+<p>执行make即可<br>编译完成在 build/output<br>编译自己的程序<br>在自己的程序里，加上上述连接库，即可完成编译</p>
 
           
         
@@ -442,7 +595,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rainbow-Martin">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -587,7 +740,7 @@
       <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
-               src="/images/avatar.png"
+               src="/images/avatar.jpg"
                alt="Rainbow-Martin" />
           <p class="site-author-name" itemprop="name">Rainbow-Martin</p>
            
@@ -599,7 +752,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
