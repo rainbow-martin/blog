@@ -115,7 +115,7 @@
 <meta property="og:site_name" content="rainbow-martin">
 <meta property="og:description" content="本文主要是介绍在使用Java interceptor过程中遇到的一个坑。针对WebMvcConfigurerAdapter与WebMvcConfigurationSupport异同进行了展开分析。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-09T07:17:34.855Z">
+<meta property="og:updated_time" content="2018-10-12T07:29:08.390Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java interceptor使用的一个坑">
 <meta name="twitter:description" content="本文主要是介绍在使用Java interceptor过程中遇到的一个坑。针对WebMvcConfigurerAdapter与WebMvcConfigurationSupport异同进行了展开分析。">
@@ -396,7 +396,8 @@
 <p>① velocity相关的代码弄过来，发现全部正常，layout的顺序都是正常的。 疑惑中…<br>② 忽然想起来，项目代码中也使用了interceptor，但是是继承 WebMvcConfigurationSupport，velocity中是继承WebMvcConfigurerAdapter，是不是这里会有什么弯弯绕。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppWebMvcConfigurationSupport</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurationSupport</span> </span>&#123;</span><br></pre></td></tr></table></figure></p>
 <p>抱着试试看的态度，在测试代码中，也写了一个类似的测试类。<br>问题重现了！！！<br>现在确定了，肯定是这俩有冲突，WebMvcConfigurerAdapter与WebMvcConfigurationSupport。<br>问题到这里，可以轻松修复这个问题了</p>
 <p>③ 早上来上班，无意中又发现EnableWebMvc这个注解也能破开这个问题</p>
-<h2 id="问题的发掘"><a href="#问题的发掘" class="headerlink" title="问题的发掘"></a>问题的发掘</h2>
+<h2 id="问题的发掘"><a href="#问题的发掘" class="headerlink" title="问题的发掘"></a>问题的发掘</h2><p>打开spring的代码，发现</p>
+
       
     </div>
     
