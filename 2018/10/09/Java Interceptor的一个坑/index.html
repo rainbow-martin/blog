@@ -91,7 +91,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="raspberry," />
+  <meta name="keywords" content="Java," />
 
 
 
@@ -107,18 +107,18 @@
 
 
 
-<meta name="description" content="本文主要的目标是建立树莓派交叉编译环境使用用。交叉编译的环境是centos 7.3版本">
-<meta name="keywords" content="raspberry">
+<meta name="description" content="本文主要是介绍在使用Java interceptor过程中遇到的一个坑。针对WebMvcConfigurerAdapter与WebMvcConfigurationSupport异同进行了展开分析。">
+<meta name="keywords" content="Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="树莓派交叉编译">
-<meta property="og:url" content="http://www.diffmore.com/2018/09/28/树莓派交叉编译/index.html">
+<meta property="og:title" content="Java interceptor使用的一个坑">
+<meta property="og:url" content="http://www.diffmore.com/2018/10/09/Java Interceptor的一个坑/index.html">
 <meta property="og:site_name" content="rainbow-martin">
-<meta property="og:description" content="本文主要的目标是建立树莓派交叉编译环境使用用。交叉编译的环境是centos 7.3版本">
+<meta property="og:description" content="本文主要是介绍在使用Java interceptor过程中遇到的一个坑。针对WebMvcConfigurerAdapter与WebMvcConfigurationSupport异同进行了展开分析。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-28T06:31:11.803Z">
+<meta property="og:updated_time" content="2018-10-09T07:17:34.855Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="树莓派交叉编译">
-<meta name="twitter:description" content="本文主要的目标是建立树莓派交叉编译环境使用用。交叉编译的环境是centos 7.3版本">
+<meta name="twitter:title" content="Java interceptor使用的一个坑">
+<meta name="twitter:description" content="本文主要是介绍在使用Java interceptor过程中遇到的一个坑。针对WebMvcConfigurerAdapter与WebMvcConfigurationSupport异同进行了展开分析。">
 
 
 
@@ -147,13 +147,13 @@
 
 
 
-  <link rel="canonical" href="http://www.diffmore.com/2018/09/28/树莓派交叉编译/"/>
+  <link rel="canonical" href="http://www.diffmore.com/2018/10/09/Java Interceptor的一个坑/"/>
 
 
 
 
 
-  <title>树莓派交叉编译 | rainbow-martin</title>
+  <title>Java interceptor使用的一个坑 | rainbow-martin</title>
   
 
 
@@ -296,7 +296,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.diffmore.com/2018/09/28/树莓派交叉编译/">
+    <link itemprop="mainEntityOfPage" href="http://www.diffmore.com/2018/10/09/Java Interceptor的一个坑/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rainbow-Martin">
@@ -313,7 +313,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">树莓派交叉编译</h1>
+          <h1 class="post-title" itemprop="name headline">Java interceptor使用的一个坑</h1>
         
 
         <div class="post-meta">
@@ -325,8 +325,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-28T14:16:59+08:00">
-                2018-09-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-09T13:54:28+08:00">
+                2018-10-09
               </time>
             
 
@@ -348,8 +348,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/嵌入式系统/" itemprop="url" rel="index">
-                    <span itemprop="name">嵌入式系统</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -385,14 +385,18 @@
       
 
       
-        <p>本文主要的目标是建立树莓派交叉编译环境使用用。交叉编译的环境是centos 7.3版本</p>
-<a id="more"></a>
-<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>下载树莓派交叉编译包<br><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/raspberrypi/tools/archive/master.zip</span><br></pre></td></tr></table></figure></p>
-<p>交叉编译工具集中有五个交叉编译组，我使用的下面这个<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tools-master/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64</span><br></pre></td></tr></table></figure></p>
-<p><a href="https://www.linaro.org/" target="_blank" rel="noopener">https://www.linaro.org/</a> 具体可以参考官网，其实每个交叉编译组都挺好的，由不同的公司提供的<br>export 编译命令，使用source xxx.sh来执行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line"></span><br><span class="line">CROSS_COMPILE_PATH=<span class="string">"/home/martin/myworks/raspberry/tools-master/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/"</span></span><br><span class="line">CXX=<span class="variable">$CROSS_COMPILE_PATH</span><span class="string">"arm-linux-gnueabihf-g++"</span></span><br><span class="line">CC=<span class="variable">$CROSS_COMPILE_PATH</span><span class="string">"arm-linux-gnueabihf-gcc"</span></span><br><span class="line">AR=<span class="variable">$CROSS_COMPILE_PATH</span><span class="string">"arm-linux-gnueabihf-ar"</span></span><br><span class="line"><span class="built_in">export</span> CROSS_COMPILE_PATH</span><br><span class="line"><span class="built_in">export</span> CXX</span><br><span class="line"><span class="built_in">export</span> CC</span><br><span class="line"><span class="built_in">export</span> AR</span><br></pre></td></tr></table></figure>
-<p>编译，按正常MAKEFILE编写，里面不要使用gcc、g++这种绝对命令，<br>其他正常写MAKE，系统库，使用CC命令后，该命令自行有SEARCH_PATH，具体可参考下面命令<br>arm-linux-gnueabihf-gcc -v<br>arm-linux-gnueabihf-ld –verbose<br>arm-linux-gnueabihf-g++ -E -x c++ - -v &lt; /dev/null<br>编译完成只有，拷贝到树莓派即可执行  </p>
-
+        <p>本文主要是介绍在使用Java interceptor过程中遇到的一个坑。<br>针对WebMvcConfigurerAdapter与WebMvcConfigurationSupport异同进行了展开分析。<br><a id="more"></a></p>
+<h2 id="问题的发现"><a href="#问题的发现" class="headerlink" title="问题的发现"></a>问题的发现</h2><p>打算在springboot上使用velocity作为引擎模板(使用的是阿里巴巴推出的 <a href="https://github.com/alibaba/velocity-spring-boot-project" target="_blank" rel="noopener">velocity-spring-boot-starter</a>)，<br>按部就班之后，跑起来了，但是仔细观察，发现不太对劲，<br>velocity的layout设置有两个<br>① 通过配置文件（application.properties进行配置）<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spring.velocity.layout-url=/velocity/layout/<span class="keyword">default</span>.vm</span><br></pre></td></tr></table></figure></p>
+<p>② 通过注解进行配置<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/"</span>)</span><br><span class="line"><span class="meta">@VelocityLayout</span>(<span class="string">"/velocity/templates/layout/default_layout.vm"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">root</span><span class="params">(Model model)</span></span></span><br></pre></td></tr></table></figure></p>
+<p>在实际运行过程中发现通过②配置的layout一直无法生效，所有的方法调用都直接套用了①中默认的layout。<br>在这一步，velocity已经能够正常运转，值替换都是完全正常的。</p>
+<p>可以推断出，一定是注解VelocityLayout出现了问题，打开源码跟踪，发现源码中的解释器VelocityLayoutHandlerInterceptor没有进入。<br>顿感奇怪，自动配置都是完全正常的，看不出来疑问所在。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">VelocityLayoutWebMvcConfigurer</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurerAdapter</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> VelocityLayoutProperties velocityLayoutProperties;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">VelocityLayoutWebMvcConfigurer</span><span class="params">(VelocityLayoutProperties velocityLayoutProperties)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.velocityLayoutProperties = velocityLayoutProperties;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> </span>&#123;</span><br><span class="line">        VelocityLayoutHandlerInterceptor velocityLayoutHandlerInterceptor =</span><br><span class="line">                <span class="keyword">new</span> VelocityLayoutHandlerInterceptor(velocityLayoutProperties.getLayoutKey());</span><br><span class="line"></span><br><span class="line">        registry.addInterceptor(velocityLayoutHandlerInterceptor);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>问题出在哪儿呢？</p>
+<h2 id="问题的深入分析"><a href="#问题的深入分析" class="headerlink" title="问题的深入分析"></a>问题的深入分析</h2><p>想想就头大，所有配置都是中规中矩，由于个人也没有使用过springboot框架，感觉有点抓瞎。<br>于是在本地先建了一个最小化的springboot应用，把项目中的velocity相关的代码转移过来，建立一个最小的实验环境</p>
+<p>① velocity相关的代码弄过来，发现全部正常，layout的顺序都是正常的。 疑惑中…<br>② 忽然想起来，项目代码中也使用了interceptor，但是是继承 WebMvcConfigurationSupport，velocity中是继承WebMvcConfigurerAdapter，是不是这里会有什么弯弯绕。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppWebMvcConfigurationSupport</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurationSupport</span> </span>&#123;</span><br></pre></td></tr></table></figure></p>
+<p>抱着试试看的态度，在测试代码中，也写了一个类似的测试类。<br>问题重现了！！！<br>现在确定了，肯定是这俩有冲突，WebMvcConfigurerAdapter与WebMvcConfigurationSupport。<br>问题到这里，可以轻松修复这个问题了</p>
+<p>③ 早上来上班，无意中又发现EnableWebMvc这个注解也能破开这个问题</p>
+<h2 id="问题的发掘"><a href="#问题的发掘" class="headerlink" title="问题的发掘"></a>问题的发掘</h2>
       
     </div>
     
@@ -438,7 +442,7 @@
       
         <div class="post-tags">
           
-	        <a href="/tags/raspberry/" rel="tag"><i class="fa fa-tag"></i> raspberry</a>
+	        <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
           
         </div>
       
@@ -451,8 +455,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/28/openssl + paho.mqtt 交叉编译/" rel="next" title="openssl + paho.mqtt 交叉编译">
-                <i class="fa fa-chevron-left"></i> openssl + paho.mqtt 交叉编译
+              <a href="/2018/09/28/阿里云三维可视化使用初体验/" rel="next" title="阿里云三维可视化使用初体验">
+                <i class="fa fa-chevron-left"></i> 阿里云三维可视化使用初体验
               </a>
             
           </div>
@@ -461,8 +465,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/09/28/阿里云三维可视化使用初体验/" rel="prev" title="阿里云三维可视化使用初体验">
-                阿里云三维可视化使用初体验 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/10/12/阿里云IoT设备接入跨平台SDK（基于mqtt）/" rel="prev" title="阿里云IoT设备接入跨平台SDK（基于mqtt）">
+                阿里云IoT设备接入跨平台SDK（基于mqtt） <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -621,7 +625,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#开始"><span class="nav-number">1.</span> <span class="nav-text">开始</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题的发现"><span class="nav-number">1.</span> <span class="nav-text">问题的发现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题的深入分析"><span class="nav-number">2.</span> <span class="nav-text">问题的深入分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题的发掘"><span class="nav-number">3.</span> <span class="nav-text">问题的发掘</span></a></li></ol></div>
             
 
           </div>

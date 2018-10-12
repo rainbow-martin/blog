@@ -91,7 +91,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="raspberry," />
+  <meta name="keywords" content="物联网开发,MQTT,阿里云," />
 
 
 
@@ -107,18 +107,18 @@
 
 
 
-<meta name="description" content="本文主要的目标是建立树莓派交叉编译环境使用用。交叉编译的环境是centos 7.3版本">
-<meta name="keywords" content="raspberry">
+<meta name="description" content="本文主要是介绍 自己实现的 阿里云IoT设备接入跨平台SDK，这个SDK提供跨平台的支持，在windows上是基于VS2013 Release版本编译*nix上基于简单的Makefile编译支持交叉编译">
+<meta name="keywords" content="物联网开发,MQTT,阿里云">
 <meta property="og:type" content="article">
-<meta property="og:title" content="树莓派交叉编译">
-<meta property="og:url" content="http://www.diffmore.com/2018/09/28/树莓派交叉编译/index.html">
+<meta property="og:title" content="阿里云IoT设备接入跨平台SDK（基于mqtt）">
+<meta property="og:url" content="http://www.diffmore.com/2018/10/12/阿里云IoT设备接入跨平台SDK（基于mqtt）/index.html">
 <meta property="og:site_name" content="rainbow-martin">
-<meta property="og:description" content="本文主要的目标是建立树莓派交叉编译环境使用用。交叉编译的环境是centos 7.3版本">
+<meta property="og:description" content="本文主要是介绍 自己实现的 阿里云IoT设备接入跨平台SDK，这个SDK提供跨平台的支持，在windows上是基于VS2013 Release版本编译*nix上基于简单的Makefile编译支持交叉编译">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-28T06:31:11.803Z">
+<meta property="og:updated_time" content="2018-10-12T06:03:11.694Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="树莓派交叉编译">
-<meta name="twitter:description" content="本文主要的目标是建立树莓派交叉编译环境使用用。交叉编译的环境是centos 7.3版本">
+<meta name="twitter:title" content="阿里云IoT设备接入跨平台SDK（基于mqtt）">
+<meta name="twitter:description" content="本文主要是介绍 自己实现的 阿里云IoT设备接入跨平台SDK，这个SDK提供跨平台的支持，在windows上是基于VS2013 Release版本编译*nix上基于简单的Makefile编译支持交叉编译">
 
 
 
@@ -147,13 +147,13 @@
 
 
 
-  <link rel="canonical" href="http://www.diffmore.com/2018/09/28/树莓派交叉编译/"/>
+  <link rel="canonical" href="http://www.diffmore.com/2018/10/12/阿里云IoT设备接入跨平台SDK（基于mqtt）/"/>
 
 
 
 
 
-  <title>树莓派交叉编译 | rainbow-martin</title>
+  <title>阿里云IoT设备接入跨平台SDK（基于mqtt） | rainbow-martin</title>
   
 
 
@@ -296,7 +296,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.diffmore.com/2018/09/28/树莓派交叉编译/">
+    <link itemprop="mainEntityOfPage" href="http://www.diffmore.com/2018/10/12/阿里云IoT设备接入跨平台SDK（基于mqtt）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rainbow-Martin">
@@ -313,7 +313,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">树莓派交叉编译</h1>
+          <h1 class="post-title" itemprop="name headline">阿里云IoT设备接入跨平台SDK（基于mqtt）</h1>
         
 
         <div class="post-meta">
@@ -325,8 +325,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-28T14:16:59+08:00">
-                2018-09-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-12T11:44:38+08:00">
+                2018-10-12
               </time>
             
 
@@ -348,8 +348,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/嵌入式系统/" itemprop="url" rel="index">
-                    <span itemprop="name">嵌入式系统</span>
+                  <a href="/categories/物联网/" itemprop="url" rel="index">
+                    <span itemprop="name">物联网</span>
                   </a>
                 </span>
 
@@ -385,13 +385,69 @@
       
 
       
-        <p>本文主要的目标是建立树莓派交叉编译环境使用用。交叉编译的环境是centos 7.3版本</p>
-<a id="more"></a>
-<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>下载树莓派交叉编译包<br><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/raspberrypi/tools/archive/master.zip</span><br></pre></td></tr></table></figure></p>
-<p>交叉编译工具集中有五个交叉编译组，我使用的下面这个<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tools-master/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64</span><br></pre></td></tr></table></figure></p>
-<p><a href="https://www.linaro.org/" target="_blank" rel="noopener">https://www.linaro.org/</a> 具体可以参考官网，其实每个交叉编译组都挺好的，由不同的公司提供的<br>export 编译命令，使用source xxx.sh来执行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line"></span><br><span class="line">CROSS_COMPILE_PATH=<span class="string">"/home/martin/myworks/raspberry/tools-master/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/"</span></span><br><span class="line">CXX=<span class="variable">$CROSS_COMPILE_PATH</span><span class="string">"arm-linux-gnueabihf-g++"</span></span><br><span class="line">CC=<span class="variable">$CROSS_COMPILE_PATH</span><span class="string">"arm-linux-gnueabihf-gcc"</span></span><br><span class="line">AR=<span class="variable">$CROSS_COMPILE_PATH</span><span class="string">"arm-linux-gnueabihf-ar"</span></span><br><span class="line"><span class="built_in">export</span> CROSS_COMPILE_PATH</span><br><span class="line"><span class="built_in">export</span> CXX</span><br><span class="line"><span class="built_in">export</span> CC</span><br><span class="line"><span class="built_in">export</span> AR</span><br></pre></td></tr></table></figure>
-<p>编译，按正常MAKEFILE编写，里面不要使用gcc、g++这种绝对命令，<br>其他正常写MAKE，系统库，使用CC命令后，该命令自行有SEARCH_PATH，具体可参考下面命令<br>arm-linux-gnueabihf-gcc -v<br>arm-linux-gnueabihf-ld –verbose<br>arm-linux-gnueabihf-g++ -E -x c++ - -v &lt; /dev/null<br>编译完成只有，拷贝到树莓派即可执行  </p>
+        <p>本文主要是介绍 自己实现的 阿里云IoT设备接入跨平台SDK，这个SDK提供跨平台的支持，<br>在windows上是基于VS2013 Release版本编译<br>*nix上基于简单的Makefile编译<br>支持交叉编译<br><a id="more"></a></p>
+<h1 id="特别注意"><a href="#特别注意" class="headerlink" title="特别注意"></a>特别注意</h1><p>代码中使用的 阿里云设备三元组是个人提供的一个三元组，请自行替换成自己设备对应的三元组<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 最后一个字段是表示，阿里云的设备是高级设备还是普通设备</span></span><br><span class="line">IotDeviceIdentity gIdentities[] = &#123;</span><br><span class="line">	&#123; <span class="string">"a1onpCjBsoK"</span>, <span class="string">"bim_music_control_btn1"</span>, <span class="string">"jOx2X75wVuTzannfUOMzrLTiOBkhiZSr"</span>, <span class="literal">true</span> &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h1 id="代码下载地址"><a href="#代码下载地址" class="headerlink" title="代码下载地址"></a>代码下载地址</h1><p><a href="https://github.com/rainbow-martin/aliyun_iot_device_sdk" target="_blank" rel="noopener">https://github.com/rainbow-martin/aliyun_iot_device_sdk</a></p>
+<h1 id="第三方依赖"><a href="#第三方依赖" class="headerlink" title="第三方依赖"></a>第三方依赖</h1><table>
+<thead>
+<tr>
+<th>库名</th>
+<th>下载地址</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mqtt库</td>
+<td><a href="https://github.com/eclipse/paho.mqtt.c" target="_blank" rel="noopener">https://github.com/eclipse/paho.mqtt.c</a></td>
+</tr>
+<tr>
+<td>jsoncpp库</td>
+<td><a href="https://github.com/open-source-parsers/jsoncpp" target="_blank" rel="noopener">https://github.com/open-source-parsers/jsoncpp</a></td>
+</tr>
+</tbody>
+</table>
+<h1 id="目录结构"><a href="#目录结构" class="headerlink" title="﻿目录结构"></a>﻿目录结构</h1><table>
+<thead>
+<tr>
+<th>目录结构</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3rd/</td>
+<td>第三方依赖性，jsoncpp和paho mqtt</td>
+</tr>
+<tr>
+<td>baselib/</td>
+<td>基础类库，用于log记录等常见工具类</td>
+</tr>
+<tr>
+<td>builall.sh*</td>
+<td>*nix 系统编译脚本</td>
+</tr>
+<tr>
+<td>iot_device_async/</td>
+<td>异步mqtt接入iot 设备</td>
+</tr>
+<tr>
+<td>iot_device_sync/</td>
+<td>同步mqtt接入iot 设备</td>
+</tr>
+<tr>
+<td>pre_make.sh</td>
+<td>嵌入式设备（如ARM）编译器选择，用于交叉编译</td>
+</tr>
+<tr>
+<td>win32/</td>
+<td>windows vs2013编译工程</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="windows系统编译版本"><a href="#windows系统编译版本" class="headerlink" title="windows系统编译版本"></a>windows系统编译版本</h2><p>WIN32<br>   编译环境： VS2013<br><br>   编译工程： win32\mytest.sln<br><br>   编译方法：打开工程，选择Release-Win32, 即可进行编译<br>   注意：需要配置$(OpenSSLDir) 作为环境变量</p>
+<h2 id="nix系统编译版本"><a href="#nix系统编译版本" class="headerlink" title="*nix系统编译版本"></a>*nix系统编译版本</h2><p>*nix<br><br>   ./buildall.sh 即可<br><br>   编译产物 在bin目录<br></p>
+<h2 id="交叉编译编译版本"><a href="#交叉编译编译版本" class="headerlink" title="交叉编译编译版本"></a>交叉编译编译版本</h2><p>参考pre_make.sh，目前是arms树莓派的交叉编译环境<br>变编译之前运行<br>source pre_make.sh</p>
 
       
     </div>
@@ -438,7 +494,11 @@
       
         <div class="post-tags">
           
-	        <a href="/tags/raspberry/" rel="tag"><i class="fa fa-tag"></i> raspberry</a>
+	        <a href="/tags/物联网开发/" rel="tag"><i class="fa fa-tag"></i> 物联网开发</a>
+          
+	        <a href="/tags/MQTT/" rel="tag"><i class="fa fa-tag"></i> MQTT</a>
+          
+	        <a href="/tags/阿里云/" rel="tag"><i class="fa fa-tag"></i> 阿里云</a>
           
         </div>
       
@@ -451,8 +511,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/28/openssl + paho.mqtt 交叉编译/" rel="next" title="openssl + paho.mqtt 交叉编译">
-                <i class="fa fa-chevron-left"></i> openssl + paho.mqtt 交叉编译
+              <a href="/2018/10/09/Java Interceptor的一个坑/" rel="next" title="Java interceptor使用的一个坑">
+                <i class="fa fa-chevron-left"></i> Java interceptor使用的一个坑
               </a>
             
           </div>
@@ -460,10 +520,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/09/28/阿里云三维可视化使用初体验/" rel="prev" title="阿里云三维可视化使用初体验">
-                阿里云三维可视化使用初体验 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -621,7 +677,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#开始"><span class="nav-number">1.</span> <span class="nav-text">开始</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#特别注意"><span class="nav-number">1.</span> <span class="nav-text">特别注意</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码下载地址"><span class="nav-number">2.</span> <span class="nav-text">代码下载地址</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第三方依赖"><span class="nav-number">3.</span> <span class="nav-text">第三方依赖</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#目录结构"><span class="nav-number">4.</span> <span class="nav-text">﻿目录结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#windows系统编译版本"><span class="nav-number">4.1.</span> <span class="nav-text">windows系统编译版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nix系统编译版本"><span class="nav-number">4.2.</span> <span class="nav-text">*nix系统编译版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交叉编译编译版本"><span class="nav-number">4.3.</span> <span class="nav-text">交叉编译编译版本</span></a></li></ol></li></ol></div>
             
 
           </div>
